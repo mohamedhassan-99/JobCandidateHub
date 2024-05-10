@@ -2,11 +2,10 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Configurations.DbContextConfiguration.Interceptors;
 
-public class DomainEventsInterceptor(IPublisher publisher, ILogger logger) : SaveChangesInterceptor
+public class DomainEventsInterceptor(IPublisher publisher) : SaveChangesInterceptor
 {
 
     public async override ValueTask<int> SavedChangesAsync(SaveChangesCompletedEventData eventData, int result, CancellationToken cancellationToken = default)
@@ -39,7 +38,7 @@ public class DomainEventsInterceptor(IPublisher publisher, ILogger logger) : Sav
             }
             catch (Exception ex)
             {
-                logger.LogError("Eevent Error :", ex);
+                Console.WriteLine(ex.ToString());
             }
         }
     }

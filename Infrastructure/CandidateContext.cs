@@ -1,4 +1,5 @@
 ﻿using Domain.Common.Contract;
+using Domain.JobCandidates;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure;
@@ -11,4 +12,6 @@ public class CandidateContext(DbContextOptions options) : DbContext(options) , I
 
         base.OnModelCreating(modelBuilder);
     }
+
+    public DbSet<JobCandidate> JobCandidates { get; set; }
 }
