@@ -12,18 +12,17 @@ public class GetCandidateQueryHandler(ISqlConnectionFactory sqlConnectionFactory
         using var connection = sqlConnectionFactory.CreateConnection();
 
         const string sql = """
-            SELECT
-                Id,
-                SUBSTRING([Name], 1, CHARINDEX('-', [Name]) - 1) AS FirstName,
-                SUBSTRING([Name], CHARINDEX('-', [Name]) + 1, LEN([Name])) AS LastName,
-                PhoneNumber,
-                Email,
-                LinkedIn,
-                GitHub,
-                Comment,
-                CallInFrom As CallFrom,
-                CallInTo As CallTo
-            FROM apartments
+            SELECT [Id]
+                  ,[FirstName]
+                  ,[LastName]
+                  ,[PhoneNumber]
+                  ,[Email]
+                  ,[CallInFrom] As CallFrom
+                  ,[CallInTo] As CallTo
+                  ,[LinkedIn]
+                  ,[GitHub]
+                  ,[Comment]
+              FROM [dbo].[JobCandidates]
             """;
 
         var candidates = await connection.QueryAsync<JobCandidateResponse>(sql);
