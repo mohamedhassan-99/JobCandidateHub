@@ -14,7 +14,7 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 app.ApplyMigrations();
-
+app.SeedData();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
