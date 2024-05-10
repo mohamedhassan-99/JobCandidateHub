@@ -8,7 +8,7 @@ public interface IJobCandidateRepository
 
     Task<IEnumerable<JobCandidate>> GetJobCandidatesPageAsync(int pageNo = 0, int pageSize = 10, CancellationToken cancellationToken = default);
 
-    void Add(JobCandidate booking);
+    void Add(JobCandidate candidate);
 
-    void UpdateAsync(JobCandidate booking, CancellationToken cancellationToken = default);
+    void UpdateAsync(JobCandidate candidate, CancellationToken cancellationToken = default);
 }
