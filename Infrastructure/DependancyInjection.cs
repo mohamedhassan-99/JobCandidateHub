@@ -7,6 +7,7 @@ using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Migrators.MSSQL;
 
 namespace Infrastructure;
 
@@ -20,7 +21,8 @@ public static class DependancyInjection
 
         services.AddDbContext<CandidateContext>((serviceProvider, options) =>
         {
-            options.UseSqlServer(connectionString);
+            options.UseSqlServer(connectionString,
+                sqlOption => sqlOption.MigrationsAssembly(typeof(MsSqlMirgratorReference).Assembly.GetName().Name));
             options.AddInterceptors(serviceProvider.GetRequiredService<DomainEventsInterceptor>());
         });
 
