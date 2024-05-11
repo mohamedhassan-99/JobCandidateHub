@@ -1,8 +1,8 @@
-﻿namespace Application.JobCanidates.GetCandidates;
+﻿namespace Application.JobCanidates.GetCandidatesPage;
 
 public class JobCandidateResponse
 {
-    public string Id { get; init; }
+    public Guid Id { get; init; }
     public string FirstName { get; init; }
     public string LastName { get; init; }
     public string PhoneNumber { get; init; }
