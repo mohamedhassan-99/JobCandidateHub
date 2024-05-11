@@ -1,26 +1,12 @@
 ﻿using Application.Abstractions.Data;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
 using System.Data;
 
 namespace Infrastructure.Data;
 
-internal sealed class SqlConnectionFactory : ISqlConnectionFactory
+internal sealed class SqlConnectionFactory(string connectionString) : ISqlConnectionFactory
 {
-    private readonly string _connectionString;
+    private readonly string _connectionString = connectionString;
 
-    public SqlConnectionFactory(string connectionString)
-    {
-        _connectionString = connectionString;
-    }
-
-    public IDbConnection CreateConnection()
-    {
-        var optionBuilder = new DbContextOptionsBuilder();
-
-        optionBuilder.UseSqlServer(_connectionString);
-        
-        var connection = new DbContext(optionBuilder.Options);
-
-        return connection.Database.GetDbConnection();
-    }
+    public IDbConnection CreateConnection() => new SqlConnection(_connectionString);
 }
