@@ -11,12 +11,13 @@ namespace Host.Extensions
             using var scope = app.ApplicationServices.CreateScope();
 
             var sqlConnectionFactory = scope.ServiceProvider.GetRequiredService<ISqlConnectionFactory>();
+
             using var connection = sqlConnectionFactory.CreateConnection();
 
             var faker = new Faker();
 
             List<object> jobCandidates = new();
-            for (var i = 0; i < 100; i++)
+            for (var i = 0; i < 20; i++)
             {
                 jobCandidates.Add(new
                 {
