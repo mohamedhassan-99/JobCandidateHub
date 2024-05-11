@@ -1,7 +1,4 @@
-﻿using Host.Converters;
-using System.Text.Json.Serialization;
-
-namespace Host.Controllers.JobCandidates;
+﻿namespace Host.Controllers.JobCandidates;
 
 public record JobCandidatePatchRequest
 {
