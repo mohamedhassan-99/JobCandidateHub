@@ -1,5 +1,5 @@
 ﻿using Application.JobCanidates.CreateCandidate;
-using Application.JobCanidates.GetCandidates;
+using Application.JobCanidates.GetCandidatesPage;
 using Application.JobCanidates.UpdateCandidate;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -11,44 +11,44 @@ namespace Host.Controllers.JobCandidates;
 public class JobCandidateController(ISender sender) : ControllerBase
 {
     [HttpGet]
-    public IActionResult GetCandidates()
+    public async Task<IActionResult> GetCandidates(int pageNo = 0, int pageSize = 10)
     {
-        var candidates = sender.Send(new GetCandidatesQuery());
+        var result = await sender.Send(new GetCandidatesPageQuery(pageNo, pageSize));
 
-        return Ok(candidates);
+        return Ok(result.Value);
     }
 
     [HttpPatch]
-    public IActionResult CreateOrUpdateCandidates(JobCandidatePatchRequest request)
+    public async Task<IActionResult> CreateOrUpdateCandidates(JobCandidatePatchRequest request)
     {
         if (request.Id == null || request.Id == Guid.Empty)
         {
-            var result = sender.Send(new CreateCandidateCommand(request.FirstName,
-                                                                request.LastName,
-                                                                request.PhoneNumber,
-                                                                request.Email,
-                                                                request.CallTo,
-                                                                request.CallFrom,
-                                                                request.LinkedIn,
-                                                                request.GitHub,
-                                                                request.Comment));
+            var result = await sender.Send(new CreateCandidateCommand(request.FirstName,
+                                                                      request.LastName,
+                                                                      request.PhoneNumber,
+                                                                      request.Email,
+                                                                      request.CallTo,
+                                                                      request.CallFrom,
+                                                                      request.LinkedIn,
+                                                                      request.GitHub,
+                                                                      request.Comment));
 
-            return Ok(result);
+            return Ok(result.Value);
         }
         else
         {
-            var result = sender.Send(new UpdateCandidateCommand(request.Id.Value,
-                                                                request.FirstName,
-                                                                request.LastName,
-                                                                request.PhoneNumber,
-                                                                request.Email,
-                                                                request.CallTo,
-                                                                request.CallFrom,
-                                                                request.LinkedIn,
-                                                                request.GitHub,
-                                                                request.Comment));
+            var result = await sender.Send(new UpdateCandidateCommand(request.Id.Value,
+                                                                      request.FirstName,
+                                                                      request.LastName,
+                                                                      request.PhoneNumber,
+                                                                      request.Email,
+                                                                      request.CallTo,
+                                                                      request.CallFrom,
+                                                                      request.LinkedIn,
+                                                                      request.GitHub,
+                                                                      request.Comment));
 
-            return Ok(result);
+            return Ok(result.Value);
         }
 
     }
