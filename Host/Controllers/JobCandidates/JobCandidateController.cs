@@ -27,8 +27,8 @@ public class JobCandidateController(ISender sender) : ControllerBase
                                                                       request.LastName,
                                                                       request.PhoneNumber,
                                                                       request.Email,
-                                                                      request.CallTo,
-                                                                      request.CallFrom,
+                                                                      request.CallTo.GetValueOrDefault(),
+                                                                      request.CallFrom.GetValueOrDefault(),
                                                                       request.LinkedIn,
                                                                       request.GitHub,
                                                                       request.Comment));
@@ -42,8 +42,8 @@ public class JobCandidateController(ISender sender) : ControllerBase
                                                                       request.LastName,
                                                                       request.PhoneNumber,
                                                                       request.Email,
-                                                                      request.CallTo,
-                                                                      request.CallFrom,
+                                                                      request.CallTo.GetValueOrDefault(),
+                                                                      request.CallFrom.GetValueOrDefault(),
                                                                       request.LinkedIn,
                                                                       request.GitHub,
                                                                       request.Comment));
